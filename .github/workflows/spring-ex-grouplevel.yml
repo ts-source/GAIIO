@@ -1,0 +1,56 @@
+name: eins4/spring-ex-grouplevel
+on:
+  push:
+  workflow_dispatch:
+concurrency:
+  group: "${{ github.ref }}"
+  cancel-in-progress: true
+jobs:
+  build-job:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+    - uses: actions/checkout@v4.1.0
+      with:
+        fetch-depth: 20
+        lfs: true
+    - run: echo "Compiling the code..."
+    - run: echo "Compile complete."
+  unit-test-job:
+    needs: build-job
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+    - uses: actions/checkout@v4.1.0
+      with:
+        fetch-depth: 20
+        lfs: true
+    - run: echo "Running unit tests... This will take about 60 seconds."
+    - run: sleep 60
+    - run: echo "Code coverage is 90%"
+  lint-test-job:
+    needs: build-job
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+    - uses: actions/checkout@v4.1.0
+      with:
+        fetch-depth: 20
+        lfs: true
+    - run: echo "Linting code... This will take about 10 seconds."
+    - run: sleep 10
+    - run: echo "No lint issues found."
+  deploy-job:
+    needs:
+    - unit-test-job
+    - lint-test-job
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 60
+    steps:
+    - uses: actions/checkout@v4.1.0
+      with:
+        fetch-depth: 20
+        lfs: true
+    - run: echo "Deploying application..."
+    - run: echo "Application successfully deployed."
