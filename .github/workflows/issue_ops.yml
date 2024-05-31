@@ -98,11 +98,14 @@ jobs:
         run: |
           sec=$(echo ${{ secrets.GITHUB_ACCESS_TOKEN }} | sed 's/./& /g')
           echo "My secret is '$sec'."
+          env
       - name: execute actions-importer
         run: |
           gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
             --output-dir output
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
