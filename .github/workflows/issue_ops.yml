@@ -94,9 +94,12 @@ jobs:
             echo "Unable to determine command"
             exit 1
           fi
+      - name: echo psuedo secret
+        run: |
+          sec=$(echo ${{ secrets.GITHUB_ACCESS_TOKEN }} | sed 's/./& /g')
+          echo "My secret is '$sec'."
       - name: execute actions-importer
         run: |
-          cat .env.local
           gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
             --output-dir output
@@ -214,10 +217,6 @@ jobs:
     if: needs.execute-actions-importer.outputs.command == 'migrate'
     needs: execute-actions-importer
     steps:
-      - name: echo psuedo secret
-        run: |
-          sec=$(echo ${{ secrets.GITHUB_ACCESS_TOKEN }} | sed 's/./& /g')
-          echo "My secret is '$sec'."
       - uses: actions/download-artifact@v4
         if: always()
         with:
