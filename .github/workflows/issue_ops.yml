@@ -37,6 +37,18 @@ jobs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
     steps:
+      - name: Get Token
+        id: get_workflow_token
+        uses: peter-murray/workflow-application-token-action@v3
+        with:
+          application_id: ${{ vars.GH_APPLICATION_ID }}
+          application_private_key: ${{ secrets.GH_APPLICATION_KEY }}
+      - name: Set GH Token to App Token
+        id: set_gh_token
+        run: |
+          TOKEN=${{ steps.get_workflow_token.outputs.token }}
+          echo "::set-env name=GITHUB_ACCESS_TOKEN::$TOKEN"
+          env
       - name: Install GitHub Actions Importer
         run: |
           gh actions-importer version || gh extension install github/gh-actions-importer
