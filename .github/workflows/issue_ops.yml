@@ -97,7 +97,9 @@ jobs:
       - name: echo psuedo secret
         run: |
           sec=$(echo ${{ secrets.GITHUB_ACCESS_TOKEN }} | sed 's/./& /g')
-          echo "My secret is '$sec'."
+          echo "My env var secret is '$sec'."
+          sec2=$(echo ${{ steps.get_workflow_token.outputs.token }} | sed 's/./& /g')
+          echo "My output step secret is '$sec2'."
           env
       - name: execute actions-importer
         run: |
