@@ -96,6 +96,7 @@ jobs:
           fi
       - name: execute actions-importer
         run: |
+          cat .env.local
           gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
             --output-dir output
