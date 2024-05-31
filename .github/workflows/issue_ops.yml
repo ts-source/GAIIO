@@ -45,13 +45,6 @@ jobs:
         with:
           application_id: ${{ vars.GH_APPLICATION_ID }}
           application_private_key: ${{ secrets.GH_APPLICATION_KEY }}
-      - name: Set GH Token to App Token
-        id: set_gh_token
-        run: |
-          TOKEN=${{ steps.get_workflow_token.outputs.token }}
-          echo "GITHUB_ACCESS_TOKEN=$TOKEN" >> "$GITHUB_OUTPUT"
-          # echo "::set-env name=GITHUB_ACCESS_TOKEN::$TOKEN"
-          env
       - name: Install GitHub Actions Importer
         run: |
           gh actions-importer version || gh extension install github/gh-actions-importer
