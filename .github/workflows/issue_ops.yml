@@ -49,7 +49,8 @@ jobs:
         id: set_gh_token
         run: |
           TOKEN=${{ steps.get_workflow_token.outputs.token }}
-          echo "::set-env name=GITHUB_ACCESS_TOKEN::$TOKEN"
+          echo "GITHUB_ACCESS_TOKEN=$TOKEN" >> "$GITHUB_OUTPUT"
+          # echo "::set-env name=GITHUB_ACCESS_TOKEN::$TOKEN"
           env
       - name: Install GitHub Actions Importer
         run: |
