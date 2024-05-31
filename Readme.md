@@ -12,9 +12,11 @@ The GitHub Actions Importer IssueOps repository demonstrates the functionality n
 
 Complete the following steps:
 
-1. Create a new repository using this repository as the template by clicking [here](https://github.com/actions/importer-issue-ops/generate).
+1. Create a Github App at the organizational level with the following permissions: Contents Read/Write, Metadata Read, Pull Requests Read/Write, Workflows Read/Write. Note the created App's ID and private key.
+Create a new repository using this repository as the template by clicking [here](https://github.com/actions/importer-issue-ops/generate).
 2. Create the following labels in this new repository, if they are not already present: `jenkins`, `azure-devops`, `circle-ci`, `gitlab`, `travis-ci`, `bamboo`, and `actions-importer-running`.
 3. Add the repository secrets described below that are relevant to the CI/CD providers being migrated.
+
 
 ### Repository settings
 
@@ -31,7 +33,8 @@ See the [documentation](https://docs.github.com/en/repositories/managing-your-re
 
 The following secrets are required:
 
-- `GH_ACCESS_TOKEN`: GitHub personal access token to create pull requests (requires `repo` and `workflow` scopes).
+- `GH_APPLICATION_ID`: The App ID of the GitHub App created earlier.
+- `GH_APPLICATION_KEY`: The value of the created GitHub App's private key. Value should not include any blank lines at the end.
 
 Optionally, the following secrets can be set:
 
