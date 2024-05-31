@@ -41,10 +41,10 @@ jobs:
     steps:
       - name: Get Token
         id: get_workflow_token
-        uses: actions/create-github-app-token@v1
+        uses: peter-murray/workflow-application-token-action@v3
         with:
-          app-id: ${{ vars.GH_APPLICATION_ID }}
-          private-key: ${{ secrets.GH_APPLICATION_KEY }}
+          application_id: ${{ vars.GH_APPLICATION_ID }}
+          application_private_key: ${{ secrets.GH_APPLICATION_KEY }}
       - name: Set GH Token to App Token
         id: set_gh_token
         run: |
