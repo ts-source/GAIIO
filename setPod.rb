@@ -53,8 +53,8 @@ matching_repos.each do |repo|
       headers: {
         'X-GitHub-Api-Version': '2022-11-28'
       }
+    puts "Successfully set the pod value for #{repo.name}."
     }
-    puts "inside rescue block"
   rescue Octokit::UnprocessableEntity
     puts "Has the 'pods' property been created at the organization level yet?"
   end # begin (rescue block)
