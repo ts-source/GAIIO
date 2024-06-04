@@ -25,9 +25,9 @@ puts "created client"
 puts client.scopes.join(", ") + "\n====\n"
 
 # get all repos for the org
-repos = client.org_repos(owner)
+# repos = client.org_repos(owner)
 
-matching_repos = repos.select { |repo| repo.name.downcase.start_with?(abbrv.downcase) }
+# matching_repos = repos.select { |repo| repo.name.downcase.start_with?(abbrv.downcase) }
 
 if matching_repos.empty?
   puts "No repositories matching the abbreviation '#{abbrv}' found."
