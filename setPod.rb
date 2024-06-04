@@ -17,8 +17,8 @@ end
 puts "got input args"
 
 # Create a new Octokit client
-client = Octokit::Client.new(access_token: ENV['GH_PAT'])
-client.auto_paginate = true
+# client = Octokit::Client.new(access_token: ENV['GH_PAT'])
+# client.auto_paginate = true
 puts "created client"
 
 # print out all scopes my PAT has access to
