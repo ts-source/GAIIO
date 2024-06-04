@@ -15,11 +15,12 @@ if abbrv.nil? || full_name.nil?
   exit
 end
 puts "got input args"
-exit
+
 # Create a new Octokit client
 client = Octokit::Client.new(access_token: ENV['GH_PAT'])
 client.auto_paginate = true
 puts "created client"
+exit
 
 # print out all scopes my PAT has access to
 puts client.scopes.join(", ") + "\n====\n"
