@@ -9,14 +9,17 @@ owner = 'ts-source'
 abbrv = ARGV[0]
 full_name = ARGV[1]
 
+
 if abbrv.nil? || full_name.nil?
   puts "Please provide both the abbreviation and full name as command line arguments."
   exit
 end
+puts "got input args"
 
 # Create a new Octokit client
 client = Octokit::Client.new(access_token: ENV['GH_PAT'])
 client.auto_paginate = true
+puts "created client"
 
 # print out all scopes my PAT has access to
 puts client.scopes.join(", ") + "\n====\n"
