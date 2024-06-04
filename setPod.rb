@@ -19,7 +19,7 @@ client = Octokit::Client.new(access_token: ENV['GH_PAT'])
 client.auto_paginate = true
 
 # print out all scopes my PAT has access to
-# puts client.scopes.join(", ") + "\n====\n"
+puts client.scopes.join(", ") + "\n====\n"
 
 # get all repos for the org
 repos = client.org_repos(owner)
@@ -44,7 +44,7 @@ puts "\nAbout to set the pod value of #{full_name} for these repos:\n#{green}  "
 # end
 
 matching_repos.each do |repo|
-  puts repo.name
+  # puts repo.name
   begin
     client.patch "/orgs/#{owner}/properties/values", {
       org: owner,
@@ -54,7 +54,7 @@ matching_repos.each do |repo|
         'X-GitHub-Api-Version': '2022-11-28'
       }
     }
-    puts "Successfully set the pod value for #{repo.name}."
+    puts "  Successfully set the pod value for #{repo.name}"
   rescue Octokit::UnprocessableEntity
     puts "Has the 'pods' property been created at the organization level yet?"
   end # begin (rescue block)
