@@ -1,0 +1,38 @@
+name: Run setPod script
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Token
+        id: get_workflow_token
+        uses: peter-murray/workflow-application-token-action@v3
+        with:
+          application_id: ${{ vars.GH_APPLICATION_ID }}
+          application_private_key: ${{ secrets.GH_APPLICATION_KEY }}
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1
+
+      - name: Install dependencies
+        run: gem install octokit
+
+      - name: Run script
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          comment_body="${{ github.event.comment.body }}"
+          abbrv=$(echo "$comment_body" | cut -d',' -f1)
+          full_name=$(echo "$comment_body" | cut -d',' -f2-)
+          #echo $full_name
+          ruby setPod.rb "$abbrv" "$full_name"
+        env:
+          GH_PAT: ${{ steps.get_workflow_token.outputs.token }}
