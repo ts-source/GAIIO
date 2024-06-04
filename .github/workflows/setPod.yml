@@ -14,6 +14,7 @@ jobs:
         with:
           application_id: ${{ vars.GH_APPLICATION_ID }}
           application_private_key: ${{ secrets.GH_APPLICATION_KEY }}
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -26,8 +27,6 @@ jobs:
         run: gem install octokit
 
       - name: Run script
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           comment_body="${{ github.event.comment.body }}"
           abbrv=$(echo "$comment_body" | cut -d',' -f1)
