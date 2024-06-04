@@ -20,10 +20,12 @@ puts "got input args"
 client = Octokit::Client.new(access_token: ENV['GH_PAT'])
 client.auto_paginate = true
 puts "created client"
-exit
+
 
 # print out all scopes my PAT has access to
 puts client.scopes.join(", ") + "\n====\n"
+
+exit
 
 # get all repos for the org
 # repos = client.org_repos(owner)
