@@ -49,14 +49,15 @@ puts "\nAbout to set the pod value of #{full_name} for these repos:\n#{green}  "
 matching_repos.each do |repo|
   puts repo.name
   begin
-    client.patch "/orgs/#{owner}/properties/values", {
-      org: owner,
-      repository_names: [repo.name],
-      properties: [{ property_name: 'pod', value: full_name }],
-      headers: {
-        'X-GitHub-Api-Version': '2022-11-28'
-      }
-    }
+    # client.patch "/orgs/#{owner}/properties/values", {
+    #   org: owner,
+    #   repository_names: [repo.name],
+    #   properties: [{ property_name: 'pod', value: full_name }],
+    #   headers: {
+    #     'X-GitHub-Api-Version': '2022-11-28'
+    #   }
+    # }
+    puts "inside rescue block"
   rescue Octokit::UnprocessableEntity
     puts "Has the 'pods' property been created at the organization level yet?"
   end # begin (rescue block)

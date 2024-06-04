@@ -31,6 +31,6 @@ jobs:
           comment_body="${{ github.event.comment.body }}"
           abbrv=$(echo "$comment_body" | cut -d',' -f1)
           full_name=$(echo "$comment_body" | cut -d',' -f2-)
-          # ruby setPod.rb "$abbrv" "$full_name"
+          ruby setPod.rb "$abbrv" "$full_name"
         env:
           GH_PAT: ${{ steps.get_workflow_token.outputs.token }}
