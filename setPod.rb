@@ -2,7 +2,7 @@
 #  the pod property must be pre-created in the org if it's not
 
 require 'octokit'
-owner = 'datavant'
+owner = 'dv'
 owner = 'ts-source'
 
 # The abbreviation and full name from command line arguments
