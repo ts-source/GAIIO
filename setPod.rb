@@ -19,7 +19,7 @@ client = Octokit::Client.new(access_token: ENV['GH_PAT'])
 client.auto_paginate = true
 
 # print out all scopes my PAT has access to
-puts client.scopes.join(", ") + "\n====\n"
+# puts client.scopes.join(", ") + "\n====\n"
 
 # get all repos for the org
 repos = client.org_repos(owner)
