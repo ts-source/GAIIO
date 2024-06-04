@@ -9,24 +9,20 @@ owner = 'ts-source'
 abbrv = ARGV[0]
 full_name = ARGV[1]
 
-
 if abbrv.nil? || full_name.nil?
   puts "Please provide both the abbreviation and full name as command line arguments."
   exit
 end
-puts "got input args"
 
 # Create a new Octokit client
 client = Octokit::Client.new(access_token: ENV['GH_PAT'])
 client.auto_paginate = true
-puts "created client"
 
 # print out all scopes my PAT has access to
 # puts client.scopes.join(", ") + "\n====\n"
 
 # get all repos for the org
 repos = client.org_repos(owner)
-puts "got repos"
 
 matching_repos = repos.select { |repo| repo.name.downcase.start_with?(abbrv.downcase) }
 
@@ -34,9 +30,6 @@ if matching_repos.empty?
   puts "No repositories matching the abbreviation '#{abbrv}' found."
   exit
 end
-
-
-exit
 
 green="\e[32m"
 normal="\e[0m"
@@ -53,14 +46,14 @@ puts "\nAbout to set the pod value of #{full_name} for these repos:\n#{green}  "
 matching_repos.each do |repo|
   puts repo.name
   begin
-    # client.patch "/orgs/#{owner}/properties/values", {
-    #   org: owner,
-    #   repository_names: [repo.name],
-    #   properties: [{ property_name: 'pod', value: full_name }],
-    #   headers: {
-    #     'X-GitHub-Api-Version': '2022-11-28'
-    #   }
-    # }
+    client.patch "/orgs/#{owner}/properties/values", {
+      org: owner,
+      repository_names: [repo.name],
+      properties: [{ property_name: 'pod', value: full_name }],
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28'
+      }
+    }
     puts "inside rescue block"
   rescue Octokit::UnprocessableEntity
     puts "Has the 'pods' property been created at the organization level yet?"
