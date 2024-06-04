@@ -26,8 +26,7 @@ puts "created client"
 
 # get all repos for the org
 repos = client.org_repos(owner)
-
-exit
+puts "got repos"
 
 matching_repos = repos.select { |repo| repo.name.downcase.start_with?(abbrv.downcase) }
 
@@ -35,6 +34,9 @@ if matching_repos.empty?
   puts "No repositories matching the abbreviation '#{abbrv}' found."
   exit
 end
+
+
+exit
 
 green="\e[32m"
 normal="\e[0m"
