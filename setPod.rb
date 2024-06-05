@@ -55,7 +55,8 @@ matching_repos.each do |repo|
       }
     }
     puts "  Successfully set the pod value for #{repo.name}"
-  rescue Octokit::UnprocessableEntity
+  rescue Octokit::UnprocessableEntity => e
     puts "Has the 'pods' property been created at the organization level yet?"
+    puts e.backtrace
   end # begin (rescue block)
 end # matching_repos.each
