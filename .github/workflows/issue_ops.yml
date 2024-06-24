@@ -1,4 +1,4 @@
-name: actions-importer-issue-ops
+name: issue-ops
 
 on:
   # issue_comment:
